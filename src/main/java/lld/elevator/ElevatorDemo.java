@@ -1,10 +1,5 @@
 package lld.elevator;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class ElevatorDemo {
 
     /*
@@ -32,5 +27,21 @@ public class ElevatorDemo {
 
      */
     public static void main(String[] args) {
+        ElevatorSystem elevatorSystem = ElevatorSystem.getInstance();
+        Elevator elevator1 = new Elevator(2);
+        Elevator elevator2 = new Elevator(1);
+        Request request1 = new Request(0, 3);
+        Request request2 = new Request(3, 1);
+        Request request3 = new Request(3, 8);
+        Request request4 = new Request(6, 11);
+        Request request5 = new Request(10, 12);
+        elevatorSystem.addNewElevator(elevator1);
+        elevatorSystem.addNewElevator(elevator2);
+
+        elevatorSystem.findBestElevator(request1).serveRequest(request1);
+        elevatorSystem.findBestElevator(request2).serveRequest(request2);
+        elevatorSystem.findBestElevator(request3).serveRequest(request3);
+        elevatorSystem.findBestElevator(request4).serveRequest(request4);
+        elevatorSystem.findBestElevator(request5).serveRequest(request5);
     }
 }
