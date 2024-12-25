@@ -87,7 +87,7 @@ public class VendingMachine {
         this.selectedProduct = selectedProduct;
     }
 
-    public void updateMoneyInserted(Money money) {
+    public void updateTotalMoney(Money money) {
         totalMoney += money.getValue();
     }
 

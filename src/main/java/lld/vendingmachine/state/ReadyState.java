@@ -4,8 +4,6 @@ import lld.vendingmachine.Money;
 import lld.vendingmachine.Product;
 import lld.vendingmachine.VendingMachine;
 
-import java.util.List;
-
 public class ReadyState implements VMState{
 
 
@@ -22,7 +20,7 @@ public class ReadyState implements VMState{
 
     @Override
     public void insertMoney(Money money) {
-        vendingMachine.updateMoneyInserted(money);
+        vendingMachine.updateTotalMoney(money);
         if(!isEnoughMoney()) return;
         vendingMachine.setCurrentState(vendingMachine.getDispenseState());
     }
