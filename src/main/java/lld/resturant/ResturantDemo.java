@@ -75,6 +75,6 @@ public class ResturantDemo {
         resturant.getBillForOrder(2);
         resturant.getBillForOrder(3);
         resturant.getBillForOrder(4);
-        resturant.getBillForOrder(0);
+        resturant.getBillForOrder(5);
     }
 }

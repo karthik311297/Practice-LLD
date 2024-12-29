@@ -25,7 +25,10 @@ public class Resturant {
     }
 
     public Order placeOrder(List<OrderItem> orderItems) {
-        Order order = new Order(orderIdSeq++, orderItems);
+        synchronized (this) {
+            orderIdSeq++;
+        }
+        Order order = new Order(orderIdSeq, orderItems);
         billingCounter.addOrder(order);
         orderManager.prepareOrder(order);
         return order;
