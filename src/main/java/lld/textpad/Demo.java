@@ -1,5 +1,7 @@
 package lld.textpad;
 
+import java.util.Arrays;
+
 public class Demo {
 
     /*
@@ -36,5 +38,9 @@ public class Demo {
         textPad.delete(3, true);
         textPad.display();
         textPad.display(3, 6);
+        textPad.insert(4, Arrays.asList("kart", "iyer", "gunner"), true);
+        textPad.display();
+        textPad.undo();
+        textPad.display();
     }
 }
