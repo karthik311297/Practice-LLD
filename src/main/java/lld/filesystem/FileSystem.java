@@ -53,7 +53,7 @@ public class FileSystem {
     private Folder findFolder(String name, Folder context) {
         SearchOption so = new SearchOption(List.of(new NameFilter(name)), null);
         SearchHandler searchHandler = new SearchHandler(so, context);
-        return searchHandler.searchForFolderInFolders();
+        return searchHandler.searchForSubFolderInFolder();
     }
 
     public List<FileSystemObject> findFiles(SearchOption searchOption) {

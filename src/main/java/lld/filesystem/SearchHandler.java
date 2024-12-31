@@ -37,7 +37,7 @@ public class SearchHandler {
         return result;
     }
 
-    protected Folder searchForFolderInFolders()
+    protected Folder searchForSubFolderInFolder()
     {
         List<FileSystemObject> fileSystemObjects = searchContext.getFileSystemObjects();
         for(FileSystemObject fileSystemObject : fileSystemObjects)
