@@ -30,6 +30,6 @@ public class PercentOffOnCategoryCoupon implements Coupon {
 
     @Override
     public String toString() {
-        return offPercent + " Percent Off on category " + Category.FASHION + " Coupon";
+        return offPercent + " Percent Off on category " + category + " Coupon";
     }
 }
