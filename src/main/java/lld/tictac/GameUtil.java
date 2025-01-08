@@ -35,7 +35,7 @@ public class GameUtil {
 
     public static Optional<Character> getWinnerSymbol(char[][] gameBoard)
     {
-        for(int i = 0;i<gameBoard.length-1;i++)
+        for(int i = 0;i<gameBoard.length;i++)
         {
             char symbol1 = gameBoard[i][0];
             char symbol2 = gameBoard[i][1];
@@ -43,7 +43,7 @@ public class GameUtil {
             if(symbol1 == symbol2 && symbol2 == symbol3 && symbol1 != STAR) return Optional.of(symbol1);
         }
 
-        for(int i = 0;i<gameBoard.length-1;i++)
+        for(int i = 0;i<gameBoard.length;i++)
         {
             char symbol1 = gameBoard[0][i];
             char symbol2 = gameBoard[1][i];
