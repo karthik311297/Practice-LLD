@@ -12,7 +12,8 @@ public class Demo {
         Delivery guy will get an otp which can be used to unlock the locker.
 
     Following are the expectations from the system:
-        Person asks the system to allocate a locker for a given package. Assume random allocation for now. The system should be extensible and accommodate allocation of locker based on the size of the input package
+        Person asks the system to allocate a locker for a given package. Assume random allocation for now.
+        The system should be extensible and accommodate allocation of locker based on the size of the input package
         The system must generate a code/otp and send it to the user along with the locker details
         The user can enter the otp & locker details to unlock the locker
         Once the package is taken out, the locker can be allocated for any other order
@@ -25,7 +26,56 @@ public class Demo {
         Modularity
         Testability
      */
+
     /*
+        User
+
+        DeliveryExecutive
+
+        Package
+            Size packageSize
+
+        enum Size - SMALL, MEDIUM, LARGE
+
+        Locker
+            id
+            Size lockerSize
+            Order order
+            OTP keepOrder(Order) - user is notified
+            Order unlock(OTP)
+            OTP returnOrder(Order) - delivery executive is notified
+            isFree()
+            currentOTP;
+
+        Order
+            Package
+            User
+            DeliveryExecutive
+
+        OTP
+            value
+            validity
+
+        OTPGenerator
+
+        OTPValidator
+
+        OrderService
+            createOrder()
+            id findLockerAndDeliverOrder()
+            returnOrder()
+
+        LockerService
+            createLocker()
+            List<> getAllLockers()
+            getLockerById()
+
+        -------------------------------------- LockerFindStrategy--------------------------------
+        /                          |                                 \                          \
+RandomStrategy               LocationBasedRandomStrategy         SizeBasedStrategy       LocationAndSizeBasedStrategy
+
+           method to implement -
+                getOptimalLockerForPackage(List<Lockers> l, Package p)
 
      */
 }
