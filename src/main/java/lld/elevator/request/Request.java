@@ -1,6 +1,6 @@
-package lld.elevator3.request;
+package lld.elevator.request;
 
-import lld.elevator3.Direction;
+import lld.elevator.Direction;
 
 public abstract class Request {
     private int floor;

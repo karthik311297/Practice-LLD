@@ -1,4 +1,4 @@
-package lld.elevator3;
+package lld.elevator;
 
 public class User {
     private int floorInMind;

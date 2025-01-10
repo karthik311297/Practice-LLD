@@ -1,4 +1,4 @@
-package lld.elevator3.request;
+package lld.elevator.request;
 
 public enum RequestType {
     INTERNAL,

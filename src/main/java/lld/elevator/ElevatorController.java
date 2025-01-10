@@ -1,6 +1,6 @@
-package lld.elevator3;
+package lld.elevator;
 
-import lld.elevator3.request.*;
+import lld.elevator.request.*;
 
 import java.util.PriorityQueue;
 
@@ -8,6 +8,7 @@ public class ElevatorController {
     private PriorityQueue<Request> upRequestsMinHeap;
     private PriorityQueue<Request> downRequestsMaxHeap;
     private ElevatorCar elevatorCar;
+    private final Object condition = new Object();
 
     public ElevatorController(ElevatorCar elevatorCar) {
         this.elevatorCar = elevatorCar;
@@ -15,15 +16,21 @@ public class ElevatorController {
         this.downRequestsMaxHeap = new PriorityQueue<>((a, b) -> b.getFloor() - a.getFloor());
     }
 
-    public void runElevator() {
-        while (!upRequestsMinHeap.isEmpty() || !downRequestsMaxHeap.isEmpty()) {
-            processRequests();
+    public void runElevator() throws InterruptedException {
+        while (true) {
+            while (!upRequestsMinHeap.isEmpty() || !downRequestsMaxHeap.isEmpty()) {
+                processRequests();
+            }
+            synchronized (condition)
+            {
+                System.out.println("Elevator is idle at floor " + this.elevatorCar.getCurFloor() + " and waiting for requests");
+                this.elevatorCar.setCurDir(Direction.NONE);
+                condition.wait();
+            }
         }
-        System.out.println("Elevator reached floor" + this.elevatorCar.getCurFloor());
-        this.elevatorCar.setCurDir(Direction.NONE);
     }
 
-    private void processRequests() {
+    private synchronized void processRequests() {
         if (this.elevatorCar.getCurDir() == Direction.UP || this.elevatorCar.getCurDir() == Direction.NONE) {
             this.elevatorCar.setCurDir(Direction.UP);
             processUpRequests();
@@ -37,9 +44,9 @@ public class ElevatorController {
 
     private void processUpRequests() {
         while (!upRequestsMinHeap.isEmpty()) {
-            System.out.println("Elevator reached floor" + this.elevatorCar.getCurFloor());
             Request request = upRequestsMinHeap.poll();
             this.elevatorCar.setCurFloor(request.getFloor());
+            System.out.println("Elevator is at floor " + this.elevatorCar.getCurFloor());
             if (request.getRequestType() == RequestType.EXTERNAL) {
                 clickButton((ExternalRequest) request, Direction.UP);
             }
@@ -53,9 +60,9 @@ public class ElevatorController {
 
     private void processDownRequests() {
         while (!downRequestsMaxHeap.isEmpty()) {
-            System.out.println("Elevator reached floor" + this.elevatorCar.getCurFloor());
             Request request = downRequestsMaxHeap.poll();
             this.elevatorCar.setCurFloor(request.getFloor());
+            System.out.println("Elevator is at floor " + this.elevatorCar.getCurFloor());
             if (request.getRequestType() == RequestType.EXTERNAL) {
                 clickButton((ExternalRequest) request, Direction.DOWN);
             }
@@ -77,10 +84,16 @@ public class ElevatorController {
 
     public synchronized void addUpRequest(Request request) {
         upRequestsMinHeap.add(request);
+        synchronized (condition) {
+            condition.notifyAll();
+        }
     }
 
     public synchronized void addDownRequest(Request request) {
         downRequestsMaxHeap.add(request);
+        synchronized (condition) {
+            condition.notifyAll();
+        }
     }
 
 }

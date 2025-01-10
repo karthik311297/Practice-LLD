@@ -1,6 +1,6 @@
-package lld.elevator3;
+package lld.elevator;
 
-import lld.elevator3.request.ExternalRequest;
+import lld.elevator.request.ExternalRequest;
 
 public class Floor {
     private int number;

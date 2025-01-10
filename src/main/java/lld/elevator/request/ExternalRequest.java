@@ -1,7 +1,7 @@
-package lld.elevator3.request;
+package lld.elevator.request;
 
-import lld.elevator3.Direction;
-import lld.elevator3.User;
+import lld.elevator.Direction;
+import lld.elevator.User;
 
 public class ExternalRequest extends Request {
 
