@@ -33,9 +33,12 @@ public class LibDemo {
             Member getMember(String MemberId)
 
         LibrarySystem - CatalogManager, MembershipService, BorrowConfiguration, PenaltyCalculator
-               Map<MemberId, Set<BorrowedBook>>
+               Map<MemberId, Set<BorrowedBook>> currentlyBorrowed
+               Map<MemberId, List<BorrowedBook>> borrowedHistory (will be added to this list after borrowing and returning,
+                                                                    will be moved from above set to this list).
                BorrowedBook borrowBook(Book b, String MemberID, Date currentDate)
                int returnBook(BorrowedBook bb, Date currentDate)
+               List<BorrowedBook> showBorrowHistory(MemberId)
 
         BorrowConfiguration
            booksLimit
