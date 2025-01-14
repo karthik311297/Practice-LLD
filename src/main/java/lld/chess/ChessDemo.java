@@ -31,9 +31,9 @@ public class ChessDemo {
             canMove(x, y) - diagonal, horizontal, vertical any number of units (both dir, total possible 8 moves)
 
         Pawn
-            canMove() - 1. handle case when opponent piece in right/left diagonal (front dir) (total possible 2 moves).
-                        2. handle first move 2 or 1 cells front. (total possible 2 moves)
-                        3. allow only one cell front after first move (total possible 1 move)
+            canMove(x, y) - 1. handle case when opponent piece in right/left diagonal (front dir) (total possible 2 moves).
+                            2. handle first move 2 or 1 cells front. (total possible 2 moves)
+                            3. allow only one cell front after first move (total possible 1 move)
 
         King
             canMove(x, y) - Diagonal, horizontal, vertical only one unit (both dir, total possible 8 moves)
