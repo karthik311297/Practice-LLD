@@ -8,6 +8,8 @@ import lld.carrental.search.*;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class RentalDemo {
     /*
@@ -118,5 +120,27 @@ public class RentalDemo {
                 reservationService.checkout(car,
                         LocalDateTime.of(2024, Month.DECEMBER, 7, 0, 0), LocalDateTime.of(2024, Month.DECEMBER, 12, 0, 0), customer);
         reservationService.confirmReservationWithPayment(reservation3);
+        reservationService.returnCar(reservation3);
+
+        // Testing multiple threads scenario when booking same dates
+        ExecutorService es = Executors.newFixedThreadPool(3);
+        for (int i = 0; i < 3; i++) {
+            es.submit(() ->
+            {
+                try {
+                    Reservation reservation =
+                            reservationService.checkout(car,
+                                    LocalDateTime.of(2024, Month.DECEMBER, 10, 0, 0), LocalDateTime.of(2024, Month.DECEMBER, 14, 0, 0), customer);
+                    Thread.sleep(2000);
+                    reservationService.confirmReservationWithPayment(reservation);
+                    System.out.println("Thread " + Thread.currentThread().getId() + " : " + "Successful");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("Thread " + Thread.currentThread().getId() + " : Failed with message - " + e.getMessage());
+                }
+            });
+        }
+        es.shutdown();
     }
+
 }
