@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 public class Reservation {
+    private long id;
     private Car car;
     private Customer customer;
     private long totalAmount;
@@ -52,5 +53,13 @@ public class Reservation {
 
     public LocalDateTime getEndDate() {
         return endDate;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

@@ -75,6 +75,7 @@ public class RentalDemo {
 
     public static void main(String[] args) throws Exception {
         Customer customer = new Customer("K1", "909", "7KA98");
+        // CarRepository, PaymentService, ReservationService will have single instance
         CarRepository carRepository = new CarRepository();
         PaymentService paymentService = new PaymentService();
         ReservationService reservationService = new ReservationService(carRepository, paymentService);
@@ -102,14 +103,20 @@ public class RentalDemo {
             System.out.println(e.getMessage());
         }
 
+        Reservation reservation3 = null;
         try {
-            Reservation reservation3 =
-                    reservationService.checkout(car,
-                            LocalDateTime.of(2024, Month.DECEMBER, 7, 0, 0), LocalDateTime.of(2024, Month.DECEMBER, 12, 0, 0), customer);
+            reservation3 = reservationService.checkout(car,
+                    LocalDateTime.of(2024, Month.DECEMBER, 7, 0, 0), LocalDateTime.of(2024, Month.DECEMBER, 12, 0, 0), customer);
             reservationService.confirmReservationWithPayment(reservation3);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
+        reservationService.returnCar(reservation1);
+        reservationService.returnCar(reservation2);
+        reservation3 =
+                reservationService.checkout(car,
+                        LocalDateTime.of(2024, Month.DECEMBER, 7, 0, 0), LocalDateTime.of(2024, Month.DECEMBER, 12, 0, 0), customer);
+        reservationService.confirmReservationWithPayment(reservation3);
     }
 }
