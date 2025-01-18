@@ -1,4 +1,4 @@
-package lld.moviesearchwithcache;
+package lld.moviesearchwithmultilevelcache;
 
 import lld.multilevelcache.cache.MultiLevelCache;
 import lld.multilevelcache.datastore.DataStore;
